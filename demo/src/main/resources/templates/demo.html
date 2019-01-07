@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+    <span>URL: </span><input type="text" id="input-url"/>
+    <br/>
+    <span>Type: </span>
+    <select id="select-type">
+    	<option value="TXT">TXT</option> 
+    	<option value="HTML">HTML</option> 
+    </select>
+    <br/>
+    <span>출력묶음단위</span> <input type="number" id="input-unit"/>
+    <br/>
+    <input type="button" value="출력" id="button-print"/>
+    <br/>
+    <span>몫 : </span><span id="span-share"></span>
+    <br/>
+    <span>나머지 : </span><span id="span-remain"></span>
+    
+    
+    
+    
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#button-print').click(function(){
+			getAnswer();
+		});
+	});
+	
+	function getAnswer() {
+		//
+		var param = {};
+		param.url = encodeURIComponent($('#input-url').val());
+		param.type = $('#select-type').val();
+		param.unit = $('#input-unit').val();
+		$.get('/test', param, function(data) {
+			$('#span-share').text(data.share);
+			$('#span-remain').text(data.remain);
+		});
+	}
+</script>
+</html>
