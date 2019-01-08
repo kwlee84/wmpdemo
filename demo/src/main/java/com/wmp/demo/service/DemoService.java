@@ -81,6 +81,7 @@ public class DemoService {
 		for (char ch : engContents.toCharArray()) {
 			list.add(ch);
 		}
+		
 		list.sort(new Comparator<Character>() {
 			//
 			@Override
