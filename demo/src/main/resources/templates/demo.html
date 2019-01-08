@@ -28,6 +28,7 @@
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
+	
 	$(document).ready(function() {
 		$('#button-print').click(function(){
 			getAnswer();
@@ -37,9 +38,11 @@
 	function getAnswer() {
 		//
 		var param = {};
-		param.url = encodeURIComponent($('#input-url').val());
+		param.url = $('#input-url').val();
 		param.type = $('#select-type').val();
 		param.unit = $('#input-unit').val();
+		
+		
 		$.get('/test', param, function(data) {
 			$('#span-share').text(data.share);
 			$('#span-remain').text(data.remain);

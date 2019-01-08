@@ -14,6 +14,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.CharMatcher;
+
 @Service
 public class DemoService {
 	//
@@ -102,25 +104,21 @@ public class DemoService {
 
 	private String extractInt(String contents) {
 		//
-		
-		return contents.replaceAll("\\D+","");
+		return CharMatcher.inRange('0','9').retainFrom(contents);
 	}
 
 	private String extractEng(String contents) {
 		//
-		return contents.replaceAll("[^a-zA-Z]+", "");
+		return CharMatcher.inRange('A','Z').or(CharMatcher.inRange('a','z')).retainFrom(contents);
 	}
 
 	private String removeTag(Document document) {
 		//
-		Elements scriptElements = document.getElementsByTag("script");
 		StringBuilder str = new StringBuilder();
+		Elements scriptElements = document.getElementsByTag("script");
 		for (Element element : scriptElements) {
-			str.append(element.toString());
+			str.append(element.data().toString());
 		}
-		Document scriptDoc = Jsoup.parse(str.toString());
-		str.setLength(0);
-		str.append(scriptDoc.text());
 		str.append(document.text());
 		return str.toString();
 	}
